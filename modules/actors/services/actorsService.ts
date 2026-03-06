@@ -9,6 +9,7 @@ export interface Actor {
   nationality: string;
   birthDate: string;
   biography: string;
+  movies:string[];
 }
 
 export const fetchActorsServices = (): Promise<Actor[]> => {
@@ -31,8 +32,14 @@ export const deleteActor = (id: string): Promise<Actor> => {
   });
 };
 
-export const updateActor = (data: ActorFormData): Promise<Actor> => {
-  return fetcher<Actor>("/v1/actors/", {
-    method: "UPDATE",
+export const updateActor = (id: string ,data: ActorFormData): Promise<Actor> => {
+  return fetcher<Actor>("/v1/actors/"+id, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+};
+export const getActor = (id: string ): Promise<Actor> => {
+  return fetcher<Actor>("/v1/actors/"+id, {
+    method: "GET",
   });
 };

@@ -1,12 +1,13 @@
 // src/app/students/services/page.tsx
 "use client";
 
-import { useState } from "react";
+import { act, use, useState } from "react";
 import { useActorServices } from "@/modules/actors/hooks/useActorService";
-import { Actor } from "@/modules/actors/services/actorsService";
+import { Actor, updateActor } from "@/modules/actors/services/actorsService";
 import Modal from "@/shared/ui/Modal"; // We import the Modal component.
 import {useRouter} from "next/navigation";
 import { deleteActor } from "@/modules/actors/services/actorsService";
+import { ActorFormData } from "../validation/actorSchema";
 
 export default function ServicesPage() {
   // We use our custom hook. All the complex logic is hidden!
@@ -17,6 +18,7 @@ export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<Actor | null>(null);
   const router = useRouter(); // Get the router to redirect
   const[ fail, setFail]= useState<string | null>(null);
+  const[isEditing, setIsEditing]=useState(false);
 
   const handleServiceClick = (actor: Actor) => {
     setSelectedService(actor);
@@ -28,9 +30,10 @@ export default function ServicesPage() {
     setSelectedService(null);
   };
 
-  const handleEdit=()=>{
-
+  const handleEdit=async(actor: Actor)=>{
+    router.push("actores/services/"+actor.id+"/edit")
   }
+
 
   const handleDelete = async (id: string) => {
 
@@ -82,7 +85,7 @@ export default function ServicesPage() {
             onClick={()=>handleServiceClick(actor)}> Detail </button>
             <button 
             className="bg-red-500 text-white px-3 py-1 rounded"
-            onClick={()=>handleEdit()}> Edit </button>
+            onClick={()=>handleEdit(actor)}> Edit </button>
           </li>
           
         ))}
@@ -99,6 +102,7 @@ export default function ServicesPage() {
         <p className="mt-4 text-sm text-gray-500">
           ID del Actor: {selectedService?.id}
         </p>
+
       </Modal>
     </div>
   );

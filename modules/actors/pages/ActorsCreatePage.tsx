@@ -12,7 +12,7 @@ export default function ServiceCreatePage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter(); // Get the router to redirect
 
-  const handleCreateService = async (data: ActorFormData) => {
+  const handleCreateActor = async (data: ActorFormData) => {
     setIsSubmitting(true);
     setError(null);
     try {
@@ -34,7 +34,7 @@ export default function ServiceCreatePage() {
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-bold mb-6">Crear Nuevo Servicio</h1>
-      <ActorForm onSubmit={handleCreateService} isSubmitting={isSubmitting} />
+      <ActorForm onSubmit={handleCreateActor} isSubmitting={isSubmitting} />
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
