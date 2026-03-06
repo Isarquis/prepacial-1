@@ -10,12 +10,12 @@ interface Route {
 
 const Header = ({ routes }: { routes: Route[] }) => {
   return (
-    <header className="bg-yellow-300 text-black p-4 shadow-md">
+    <header className="bg-blue-800 text-white p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-3">
           {/* We assume you have a logo.png in the public/ folder. */}
          
-          <span className="text-2xl font-semibold">SeneTime</span>
+          <span className="text-2xl font-semibold"> CineMania</span>
         </Link>
         <nav>
           {routes.map((route) => (

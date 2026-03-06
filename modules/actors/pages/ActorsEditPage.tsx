@@ -15,6 +15,14 @@ export default function ActorsEditPage() {
 
   const router = useRouter();
 
+  const defaultValues = {
+  name: actor?.name,
+  photo: actor?.photo,
+  nationality: actor?.nationality,
+  biography: actor?.biography,
+  birthDate: actor?.birthDate.split("T")[0], // 👈 arreglo
+};
+
   useEffect(() => {
     const loadActor = async () => {
       try {
@@ -46,6 +54,8 @@ export default function ActorsEditPage() {
     }
   };
 
+
+
   if (!actor) {
     return <p>Cargando actor...</p>;
   }
@@ -59,7 +69,7 @@ export default function ActorsEditPage() {
       <ActorForm
         onSubmit={handleUpdateActor}
         isSubmitting={isSubmitting}
-        defaultValues={actor}
+        defaultValues={defaultValues}
       />
 
       {error && <p className="text-red-500 mt-4">{error}</p>}

@@ -8,7 +8,7 @@ import Modal from "@/shared/ui/Modal"; // We import the Modal component.
 import {useRouter} from "next/navigation";
 import { deleteActor } from "@/modules/actors/services/actorsService";
 import { ActorFormData } from "../validation/actorSchema";
-
+import { global } from "styled-jsx/css";
 export default function ServicesPage() {
   // We use our custom hook. All the complex logic is hidden!
   const { services, isLoading, error } = useActorServices();
@@ -18,7 +18,6 @@ export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<Actor | null>(null);
   const router = useRouter(); // Get the router to redirect
   const[ fail, setFail]= useState<string | null>(null);
-  const[isEditing, setIsEditing]=useState(false);
 
   const handleServiceClick = (actor: Actor) => {
     setSelectedService(actor);
@@ -68,25 +67,41 @@ export default function ServicesPage() {
 
       <ul className="space-y-4">
         {services.map((actor) => (
-          <li
-          
-            key={actor.id}
-            className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+<li
+  key={actor.id}
+  className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow w-full"
+>
+  <div className="flex flex-col md:flex-row items-start gap-4">
 
-          >
-            <img src={actor.photo}></img>
-            <h2 className="text-xl font-semibold">{actor.name}</h2>
-            <p className="text-gray-600 mt-2">{actor.biography}</p>
-            <button 
-            className="bg-red-500 text-white px-3 py-1 rounded"
-            onClick={()=>handleDelete(actor.id)}> Delete </button>
-            <button 
-            className="bg-red-500 text-white px-3 py-1 rounded"
-            onClick={()=>handleServiceClick(actor)}> Detail </button>
-            <button 
-            className="bg-red-500 text-white px-3 py-1 rounded"
-            onClick={()=>handleEdit(actor)}> Edit </button>
-          </li>
+    {/* Imagen */}
+    <img
+      src={actor.photo}
+      alt={actor.name}
+      className="w-full md:w-40 h-auto object-cover rounded"
+    />
+
+    {/* Información */}
+    <div className="flex-1">
+      <h2 className="text-xl font-semibold">{actor.name}</h2>
+      <p className="text-gray-600 mt-2">{actor.biography}</p>
+
+      <div className="mt-3 flex flex-wrap gap-2">
+        <button className="button" onClick={() => handleDelete(actor.id)}>
+          Delete
+        </button>
+
+        <button className="button" onClick={() => handleServiceClick(actor)}>
+          Detail
+        </button>
+
+        <button className="button" onClick={() => handleEdit(actor)}>
+          Edit
+        </button>
+      </div>
+    </div>
+
+  </div>
+</li>
           
         ))}
       </ul>
