@@ -30,7 +30,6 @@ export default function ActorForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-      {/* NAME */}
       <div>
         <label htmlFor="name" className="block font-medium">
           Name
@@ -45,7 +44,6 @@ export default function ActorForm({
         )}
       </div>
 
-      {/* PHOTO */}
       <div>
         <label htmlFor="photo" className="block font-medium">
           Photo URL
@@ -60,7 +58,6 @@ export default function ActorForm({
         )}
       </div>
 
-      {/* NATIONALITY */}
       <div>
         <label htmlFor="nationality" className="block font-medium">
           Nationality
@@ -77,7 +74,6 @@ export default function ActorForm({
         )}
       </div>
 
-      {/* BIRTHDAY */}
       <div>
         <label htmlFor="birthDate" className="block font-medium">
           Birthday
@@ -95,7 +91,6 @@ export default function ActorForm({
         )}
       </div>
 
-      {/* BIOGRAPHY */}
       <div>
         <label htmlFor="biography" className="block font-medium">
           Biography
@@ -112,7 +107,6 @@ export default function ActorForm({
         )}
       </div>
 
-      {/* SUBMIT */}
       <button
         type="submit"
         disabled={isSubmitting}

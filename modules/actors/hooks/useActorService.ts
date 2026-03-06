@@ -2,10 +2,10 @@
 "use client"; // Hooks that use useState/useEffect should be for the client.
 
 import { useState, useEffect } from "react";
-import { Service, fetchActorsServices } from "@/modules/actors/services/actorsService";
+import { Actor, fetchActorsServices } from "@/modules/actors/services/actorsService";
 
-export function useStudentServices() {
-  const [services, setServices] = useState<Service[]>([]);
+export function useActorServices() {
+  const [services, setServices] = useState<Actor[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

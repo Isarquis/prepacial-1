@@ -2,20 +2,24 @@
 "use client";
 
 import { useState } from "react";
-import { useStudentServices } from "@/modules/actors/hooks/useActorService";
-import { Service } from "@/modules/actors/services/actorsService";
+import { useActorServices } from "@/modules/actors/hooks/useActorService";
+import { Actor } from "@/modules/actors/services/actorsService";
 import Modal from "@/shared/ui/Modal"; // We import the Modal component.
+import {useRouter} from "next/navigation";
+import { deleteActor } from "@/modules/actors/services/actorsService";
 
 export default function ServicesPage() {
   // We use our custom hook. All the complex logic is hidden!
-  const { services, isLoading, error } = useStudentServices();
+  const { services, isLoading, error } = useActorServices();
 
   // New state for modal visibility and selected service.
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedService, setSelectedService] = useState<Actor | null>(null);
+  const router = useRouter(); // Get the router to redirect
+  const[ fail, setFail]= useState<string | null>(null);
 
-  const handleServiceClick = (service: Service) => {
-    setSelectedService(service);
+  const handleServiceClick = (actor: Actor) => {
+    setSelectedService(actor);
     setIsModalOpen(true);
   };
 
@@ -24,29 +28,63 @@ export default function ServicesPage() {
     setSelectedService(null);
   };
 
+  const handleEdit=()=>{
+
+  }
+
+  const handleDelete = async (id: string) => {
+
+      try {
+        await deleteActor(id);
+        router.push("/actores");
+      } catch (err) {
+        setFail(
+          err instanceof Error
+            ? err.message
+            : "An error occurred while creating the service."
+        );
+      } finally {
+      }
+      window.location.reload();
+  }
+
   // State-based conditional rendering.
   if (isLoading) {
-    return <div className="text-center p-8">Cargando servicios...</div>;
+    return <div className="text-center p-8">Cargando ...</div>;
   }
 
   if (error) {
     return <div className="text-center p-8 text-red-500">{error}</div>;
   }
 
+
+
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-6">Servicios Disponibles</h1>
+      <h1 className="text-3xl font-bold mb-6"> Listado de Actores</h1>
 
       <ul className="space-y-4">
-        {services.map((service) => (
+        {services.map((actor) => (
           <li
-            key={service.id}
-            className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-            onClick={() => handleServiceClick(service)} // Hacemos el item clicable
+          
+            key={actor.id}
+            className="p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow"
+
           >
-            <h2 className="text-xl font-semibold">{service.name}</h2>
-            <p className="text-gray-600 mt-2">{service.biography}</p>
+            <img src={actor.photo}></img>
+            <h2 className="text-xl font-semibold">{actor.name}</h2>
+            <p className="text-gray-600 mt-2">{actor.biography}</p>
+            <button 
+            className="bg-red-500 text-white px-3 py-1 rounded"
+            onClick={()=>handleDelete(actor.id)}> Delete </button>
+            <button 
+            className="bg-red-500 text-white px-3 py-1 rounded"
+            onClick={()=>handleServiceClick(actor)}> Detail </button>
+            <button 
+            className="bg-red-500 text-white px-3 py-1 rounded"
+            onClick={()=>handleEdit()}> Edit </button>
           </li>
+          
         ))}
       </ul>
 
