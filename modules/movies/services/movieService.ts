@@ -29,7 +29,7 @@ export const fetchMovieServices = (): Promise<Movie[]> => {
   return fetcher<Movie[]>("/v1/movies/");
 };
 
-export const createActor = (data: MovieFormData): Promise<Movie> => {
+export const createMovie = (data: MovieFormData): Promise<Movie> => {
   return fetcher<Movie>("/v1/movies", {
     
     method: "POST",

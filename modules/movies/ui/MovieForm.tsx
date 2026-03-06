@@ -54,24 +54,7 @@ export default function MovieForm({
           <p className="text-red-500 text-sm mt-1">{errors.poster.message}</p>
         )}
       </div>
-    <div>
-        <label htmlFor="duration" className="block font-medium">
-          Duration 
-        </label>
-        <input
-          id="duration"
-          type="number"
-          {...register("duration", {
-            setValueAs: (value) => Number(value),
-          })}
-          className="w-full p-2 border rounded"
-        />
-        {errors.duration && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.duration.message}
-          </p>
-        )}
-      </div>
+
 
 
       <div>
@@ -103,24 +86,7 @@ export default function MovieForm({
         )}
       </div>
     
-    <div>
-        <label htmlFor="popularity" className="block font-medium">
-          Popularity 
-        </label>
-        <input
-          id="popularity"
-          type="number"
-          {...register("popularity", {
-            setValueAs: (value) => Number(value),
-          })}
-          className="w-full p-2 border rounded"
-        />
-        {errors.popularity && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.popularity.message}
-          </p>
-        )}
-      </div>
+
 
 
       <button

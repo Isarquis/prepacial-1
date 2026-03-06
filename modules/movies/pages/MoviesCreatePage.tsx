@@ -5,20 +5,20 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ActorForm from "@/modules/actors/ui/ActorForm";
 import { ActorFormData } from "@/modules/actors/validation/actorSchema";
-import {createActor} from "@/modules/actors/services/actorsService"
+import {createMovie} from "@/modules/movies/services/movieService";
 import MovieForm from "../ui/MovieForm";
 import AwardForm from "@/modules/prizes/ui/PrizesForm";
+import { MovieFormData } from "../validation/movieSchema";
 
 export default function ServiceCreatePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter(); // Get the router to redirect
-
-  const handleCreateActor = async (data: ActorFormData) => {
+  const handleCreateActor = async (data: MovieFormData) => {
     setIsSubmitting(true);
     setError(null);
     try {
-      await createActor(data);
+      await createMovie(data);
       // Success! This is where we would show a global notification.
       // For now, we simply redirect.
       router.push("/actores"); // Redirect to the provider's home page
